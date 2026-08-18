@@ -4,7 +4,7 @@ import { ADMIN_ID } from './storage.js';
 
 export const BOT_TOKEN = '8959538358:AAGMI6t-BDxn-ozqXFTVMFGcunvURdgUAl0';
 export const BOT_USERNAME = 'dsnhbgsdchjsdfuyhsdfgbot';
-export const WEBAPP_URL = process.env.WEBAPP_URL || 'https://zbmvc-188-113-221-109.free.pinggy.net';
+export const WEBAPP_URL = process.env.WEBAPP_URL || 'https://seka-myus.onrender.com';
 
 let bot = null;
 
@@ -46,9 +46,7 @@ export function initTelegramBot() {
     let appUrl = WEBAPP_URL;
     if (payload && payload.startsWith('room_')) {
       const roomId = payload.replace('room_', '');
-      appUrl = `${WEBAPP_URL}#room=${roomId}&uid=${userId}&name=${encodeURIComponent(user.firstName)}`;
-    } else {
-      appUrl = `${WEBAPP_URL}#uid=${userId}&name=${encodeURIComponent(user.firstName)}`;
+      appUrl = `${WEBAPP_URL}#room=${roomId}`;
     }
 
     if (isAdmin) {
@@ -139,7 +137,7 @@ export function initTelegramBot() {
 
       // Foydalanuvchiga xabar yuborish
       try {
-        const userAppUrl = `${WEBAPP_URL}#uid=${approved.id}&name=${encodeURIComponent(approved.firstName)}`;
+        const userAppUrl = WEBAPP_URL;
         await bot.telegram.sendMessage(
           targetId,
           `🎉 *Tabriklaymiz, ${approved.firstName}!* \n\n*Seka / Trinka Online* o'yiniga kirishingiz Admin tomonidan tasdiqlandi!\n\n💰 Boshlang'ich hisobingiz: *1,000 chip*\n\nO'yinni boshlash uchun quyidagi tugmani bosing:`,
