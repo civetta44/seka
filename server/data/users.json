@@ -1,0 +1,37 @@
+{
+  "999888777": {
+    "id": "999888777",
+    "username": "",
+    "firstName": "Player",
+    "lastName": "",
+    "role": "user",
+    "status": "approved",
+    "chips": 1000,
+    "createdAt": "2026-08-18T11:10:53.099Z",
+    "approvedAt": "2026-08-18T11:10:53.127Z",
+    "isBanned": false
+  },
+  "8940298485": {
+    "id": "8940298485",
+    "username": "hnurilloxon",
+    "firstName": "Nurilloxon",
+    "role": "admin",
+    "status": "approved",
+    "chips": 50000,
+    "createdAt": "2026-08-18T11:10:53.081Z",
+    "approvedAt": "2026-08-18T11:10:53.081Z",
+    "isBanned": false
+  },
+  "6310045485": {
+    "id": "6310045485",
+    "username": "d1oniyorbek",
+    "firstName": "Дониёрбек",
+    "lastName": "",
+    "role": "user",
+    "status": "approved",
+    "chips": 1000,
+    "createdAt": "2026-08-18T11:20:24.101Z",
+    "approvedAt": "2026-08-18T11:21:22.737Z",
+    "isBanned": false
+  }
+}

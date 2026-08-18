@@ -1,0 +1,273 @@
+/* ==========================================================================
+   SMARTPHONE SIMULATOR & TELEGRAM MINI APP SHELL
+   ========================================================================== */
+
+.app-root {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at 50% 10%, #171d29 0%, #080b10 100%);
+  overflow: hidden;
+}
+
+.simulator-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Desktop Top Control Bar */
+.desktop-top-bar {
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  right: 20px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(18, 24, 38, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 0 16px;
+  z-index: 100;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-icon {
+  font-size: 20px;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.badge-tma {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: rgba(88, 166, 255, 0.15);
+  border: 1px solid rgba(88, 166, 255, 0.4);
+  color: #58a6ff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.view-mode-toggles {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 3px;
+  border-radius: 8px;
+  gap: 4px;
+}
+
+.btn-mode {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tg-theme-hint-color);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-mode.active, .btn-mode:hover {
+  background: var(--bg-surface-3);
+  color: #fff;
+}
+
+.device-preset-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--tg-theme-hint-color);
+}
+
+.device-preset-selector select {
+  background: var(--bg-surface-3);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+  font-size: 12px;
+}
+
+/* Smartphone Phone Hardware Frame */
+.phone-frame {
+  position: relative;
+  width: 390px;
+  height: 844px;
+  max-height: calc(100dvh - 80px);
+  background: var(--tg-theme-bg-color);
+  border-radius: 46px;
+  box-shadow: 0 0 0 10px #1e2430, 0 0 0 12px rgba(255, 255, 255, 0.1), 0 30px 80px rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-top: 50px;
+  transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease, max-height 0.3s ease;
+}
+
+/* Fullscreen / Responsive Mode Overrides */
+.simulator-wrapper.fullscreen-mode .desktop-top-bar {
+  position: static;
+  margin-bottom: 8px;
+  width: calc(100% - 32px);
+}
+
+.simulator-wrapper.fullscreen-mode .phone-frame {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin-top: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.simulator-wrapper.fullscreen-mode .phone-dynamic-island,
+.simulator-wrapper.fullscreen-mode .phone-home-indicator {
+  display: none;
+}
+
+/* Phone Bezel Elements */
+.phone-dynamic-island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 115px;
+  height: 28px;
+  background: #000;
+  border-radius: 18px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  pointer-events: none;
+}
+
+.camera-lens {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #111a2e;
+  border: 1px solid #1e293b;
+}
+
+.sensor {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0d131f;
+  margin-left: 6px;
+}
+
+.phone-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* Telegram Mini App Native Bar */
+.tg-app-header {
+  height: 54px;
+  padding: 14px 16px 6px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--tg-theme-header-bg-color);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  z-index: 90;
+  flex-shrink: 0;
+}
+
+.tg-btn-close {
+  color: var(--tg-theme-link-color);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tg-header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.15;
+}
+
+.tg-app-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tg-app-subtitle {
+  font-size: 11px;
+  color: var(--tg-theme-hint-color);
+}
+
+.tg-btn-menu {
+  color: var(--tg-theme-link-color);
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+/* Phone Inner Viewport */
+.phone-viewport {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  background: var(--tg-theme-bg-color);
+  padding-bottom: 24px;
+}
+
+/* Responsive adjustment if opened directly on real mobile/TMA */
+@media (max-width: 600px) {
+  .desktop-top-bar {
+    display: none !important;
+  }
+  .phone-frame {
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    margin-top: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .phone-dynamic-island {
+    display: none;
+  }
+}

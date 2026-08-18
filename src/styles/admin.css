@@ -1,0 +1,190 @@
+/* ==========================================================================
+   ADMIN DASHBOARD & USER MANAGEMENT STYLES (SUPER ADMIN 8940298485)
+   ========================================================================== */
+
+.admin-panel-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bg-space);
+  color: #fff;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.admin-title-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--gold-bright);
+}
+
+.admin-tabs-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  background: var(--bg-surface-2);
+  padding: 3px;
+  border-radius: 8px;
+}
+
+.admin-tab-btn {
+  flex: 1;
+  padding: 6px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--tg-theme-hint-color);
+  border-radius: 6px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.admin-tab-btn.active {
+  background: var(--gold-pure);
+  color: #000;
+  box-shadow: 0 2px 6px rgba(255, 215, 0, 0.3);
+}
+
+/* User Card / Row Item */
+.admin-user-card {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.user-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-name-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-display-name {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.user-tg-id {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--tg-theme-hint-color);
+}
+
+.user-status-tag {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.status-approved { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
+.status-pending { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+.status-rejected { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444; }
+.status-banned { background: rgba(100, 116, 139, 0.3); color: #cbd5e1; border: 1px solid #64748b; }
+
+.user-card-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.btn-admin-act {
+  flex: 1;
+  padding: 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+  transition: transform 0.1s ease;
+}
+
+.btn-admin-act:active {
+  transform: scale(0.96);
+}
+
+.btn-approve {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #fff;
+}
+
+.btn-reject {
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  color: #fff;
+}
+
+.btn-chips-edit {
+  background: var(--bg-surface-3);
+  border: 1px solid var(--border-subtle);
+  color: var(--gold-bright);
+}
+
+.btn-ban-toggle {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f87171;
+}
+
+/* ==========================================================================
+   AUTH GATE WAITING VIEW
+   ========================================================================== */
+
+.auth-gate-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 24px;
+  text-align: center;
+  gap: 16px;
+}
+
+.auth-gate-icon {
+  font-size: 48px;
+  animation: pulse 2s infinite;
+}
+
+.auth-gate-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold-bright);
+}
+
+.auth-gate-desc {
+  font-size: 13px;
+  color: var(--tg-theme-hint-color);
+  line-height: 1.5;
+  max-width: 280px;
+}
+
+.auth-gate-user-badge {
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #fff;
+}

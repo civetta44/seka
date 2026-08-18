@@ -1,0 +1,319 @@
+/* ==========================================================================
+   SEKA GAME UI, HUD, ACTIONS & TELEGRAM MOBILE LAYOUT
+   ========================================================================== */
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+/* Mode Bar & Quick Settings */
+.game-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: rgba(8, 12, 16, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+  z-index: 10;
+}
+
+.mode-selector {
+  display: flex;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px;
+  border-radius: 6px;
+  gap: 2px;
+}
+
+.mode-btn {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--tg-theme-hint-color);
+  transition: all 0.2s ease;
+}
+
+.mode-btn.active {
+  background: var(--gold-pure);
+  color: #000;
+  box-shadow: 0 1px 4px rgba(255, 215, 0, 0.4);
+}
+
+.btn-reset-match {
+  font-size: 11px;
+  color: var(--tg-theme-hint-color);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-reset-match:active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   BOT SECTION (TOP OF FELT)
+   ========================================================================== */
+
+.bot-player-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+}
+
+.player-identity-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.player-avatar {
+  font-size: 16px;
+}
+
+.player-name {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.player-chips-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--gold-pure);
+}
+
+.bot-score-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid #ef4444;
+  color: #fca5a5;
+  animation: fadeIn 0.3s ease;
+}
+
+.cards-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  min-height: var(--card-height);
+  align-items: center;
+}
+
+/* ==========================================================================
+   CENTER FELT: POT, SVARA, STATUS & DECK
+   ========================================================================== */
+
+.table-center-hub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 6px 0;
+  z-index: 2;
+}
+
+.pot-display-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: radial-gradient(circle, #271e06 0%, #151004 100%);
+  border: 2px solid var(--gold-pure);
+  padding: 4px 16px;
+  border-radius: 24px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 215, 0, 0.3);
+}
+
+.pot-icon {
+  font-size: 16px;
+}
+
+.pot-amount {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--gold-bright);
+}
+
+.svara-banner {
+  background: linear-gradient(135deg, #e11d48 0%, #991b1b 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 2px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+  border: 1px solid #fecaca;
+  box-shadow: 0 0 10px rgba(225, 29, 72, 0.6);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.round-status-message {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  max-width: 320px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 4px 10px;
+  border-radius: 12px;
+  line-height: 1.3;
+}
+
+/* ==========================================================================
+   HUMAN PLAYER ZONE (BOTTOM OF FELT)
+   ========================================================================== */
+
+.human-player-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+}
+
+.player-score-hud {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(14, 21, 33, 0.9);
+  border: 1px solid var(--gold-dark);
+  padding: 4px 12px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.score-suit-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold-bright);
+}
+
+.score-points-counter {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* ==========================================================================
+   BOTTOM ACTION CONTROLS BAR
+   ========================================================================== */
+
+.game-action-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 12px 14px 12px;
+  background: #090e15;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 10;
+}
+
+.quick-raise-pills {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.pill-amt {
+  flex: 1;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--tg-theme-hint-color);
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.pill-amt.selected, .pill-amt:hover {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: var(--gold-pure);
+  color: var(--gold-bright);
+}
+
+.main-actions-row {
+  display: flex;
+  gap: 6px;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 10px 4px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: all 0.15s ease;
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+.action-btn:disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.action-btn:active {
+  transform: scale(0.96);
+}
+
+.btn-fold {
+  background: linear-gradient(135deg, #7f1d1d 0%, #450a0a 100%);
+  border-color: #991b1b;
+}
+
+.btn-check-call {
+  background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%);
+  border-color: #2563eb;
+}
+
+.btn-raise {
+  background: linear-gradient(135deg, #d97706 0%, #78350f 100%);
+  border-color: #f59e0b;
+}
+
+.btn-deal-next {
+  background: linear-gradient(135deg, #059669 0%, #064e3b 100%);
+  border-color: #10b981;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+}
+
+.btn-sub-label {
+  font-size: 9px;
+  font-weight: 500;
+  opacity: 0.8;
+}

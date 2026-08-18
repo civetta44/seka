@@ -1,0 +1,38 @@
+:root {
+  /* Casino Luxury Table Colors */
+  --felt-green-dark: #072a1e;
+  --felt-green-center: #0e4c36;
+  --felt-border: #051a13;
+  --gold-accent: #ffd700;
+  --gold-bright: #ffea79;
+  --gold-dark: #b8860b;
+  --gold-gradient: linear-gradient(135deg, #fff275 0%, #d4af37 50%, #996515 100%);
+  --crimson-red: #e11d48;
+  --platinum-dark: #0f172a;
+  
+  /* Telegram Theme Tokens */
+  --tg-theme-bg-color: #080c10;
+  --tg-theme-text-color: #f8fafc;
+  --tg-theme-hint-color: #94a3b8;
+  --tg-theme-link-color: #38bdf8;
+  --tg-theme-button-color: #10b981;
+  --tg-theme-button-text-color: #ffffff;
+
+  /* Card Dimensions */
+  --card-width: 86px;
+  --card-height: 124px;
+  --card-border-radius: 8px;
+  --card-shadow: 0 10px 24px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
+
+  /* Fonts */
+  --font-display: 'Cinzel', serif;
+  --font-ui: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+@media (min-width: 480px) {
+  :root {
+    --card-width: 96px;
+    --card-height: 138px;
+  }
+}

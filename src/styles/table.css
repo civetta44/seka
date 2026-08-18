@@ -1,0 +1,294 @@
+/* ==========================================================================
+   CASINO FELT TABLE, 2D CARD MODELS & ANIMATIONS
+   ========================================================================== */
+
+/* Main Casino Felt Table */
+.seka-table {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 45%, var(--felt-green-center) 0%, var(--felt-green-dark) 80%, var(--felt-border) 100%);
+  border: 4px solid #14382c;
+  border-radius: 28px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px 14px;
+  overflow: hidden;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.8), 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.table-felt-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 16px 16px;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   2D CARD ELEMENT STRUCTURE (100% RELIABLE VECTOR)
+   ========================================================================== */
+
+.seka-card {
+  width: var(--card-width);
+  height: var(--card-height);
+  position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+  display: inline-block;
+  user-select: none;
+}
+
+.seka-card.is-hidden .front-face {
+  transform: rotateY(180deg);
+}
+
+.seka-card.is-hidden .back-face {
+  transform: rotateY(0deg);
+}
+
+.seka-card:not(.is-hidden) .front-face {
+  transform: rotateY(0deg);
+}
+
+.seka-card:not(.is-hidden) .back-face {
+  transform: rotateY(180deg);
+}
+
+/* Card Faces */
+.card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--card-border-radius);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Front Face */
+.front-face {
+  background: linear-gradient(135deg, #ffffff 0%, #f4f6f8 100%);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 6px;
+  color: #0f172a;
+}
+
+.suit-red .front-face {
+  color: var(--crimson-red);
+}
+
+.suit-black .front-face {
+  color: #0f172a;
+}
+
+.card-inner-gold-border {
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: calc(var(--card-border-radius) - 3px);
+  pointer-events: none;
+}
+
+/* Corner Pips */
+.card-corner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  font-family: var(--font-display);
+  font-weight: 800;
+  z-index: 2;
+}
+
+.corner-tl {
+  align-self: flex-start;
+}
+
+.corner-br {
+  align-self: flex-end;
+  transform: rotate(180deg);
+}
+
+.corner-rank {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.corner-suit {
+  width: 11px;
+  height: 11px;
+  margin-top: 1px;
+  display: flex;
+}
+
+.card-suit-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Center Artwork */
+.card-center-artwork {
+  position: absolute;
+  inset: 18px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Ace Emblem */
+.center-ace-emblem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.ace-filigree-ring {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border: 1px dashed rgba(212, 175, 55, 0.7);
+  border-radius: 50%;
+}
+
+.ace-main-suit {
+  width: 32px;
+  height: 32px;
+}
+
+.ace-label, .royal-pts, .numeric-pts {
+  font-size: 8px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #b8860b;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Royal Portrait */
+.center-royal-portrait {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+.royal-crown {
+  font-size: 14px;
+}
+
+.royal-character {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.royal-suit-badge {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+}
+
+/* Numeric Pips Grid (6, 7, 8, 9, 10) */
+.numeric-pips-grid {
+  display: grid;
+  width: 100%;
+  height: 44px;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+
+.pips-6 { grid-template-rows: repeat(3, 1fr); }
+.pips-7 { grid-template-rows: repeat(4, 1fr); }
+.pips-8 { grid-template-rows: repeat(4, 1fr); }
+.pips-9 { grid-template-rows: repeat(5, 1fr); }
+.pips-10 { grid-template-rows: repeat(5, 1fr); }
+
+.card-pip-item {
+  width: 10px;
+  height: 10px;
+}
+
+/* Back Face (Casino Gold Filigree on Velvet Crimson) */
+.back-face {
+  background: radial-gradient(circle at 50% 50%, #991b1b 0%, #450a0a 100%);
+  border: 1px solid #d4af37;
+  padding: 4px;
+}
+
+.casino-back-pattern {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  border-radius: calc(var(--card-border-radius) - 4px);
+  background-image: repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.15) 0, rgba(212, 175, 55, 0.15) 2px, transparent 0, transparent 8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.back-inner-rim {
+  position: absolute;
+  inset: 4px;
+  border: 1px dashed rgba(212, 175, 55, 0.4);
+}
+
+.back-central-crest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #2b0707;
+  border: 1px solid #ffd700;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.crest-emblem {
+  font-size: 13px;
+}
+
+.crest-title {
+  font-family: var(--font-display);
+  font-size: 6.5px;
+  font-weight: 800;
+  color: #ffd700;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   WINNING COMBINATION GLOW & HIGHLIGHTS
+   ========================================================================== */
+
+.highlight-winning-card {
+  transform: translateY(-8px) scale(1.04);
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.8), 0 12px 24px rgba(0, 0, 0, 0.8);
+  border: 2px solid #ffd700 !important;
+}
+
+.highlight-winning-card .card-inner-gold-border {
+  border-color: #ffd700;
+  box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.6);
+}

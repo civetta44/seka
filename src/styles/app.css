@@ -1,0 +1,523 @@
+/* ==========================================================================
+   APP UI, TABS, INSPECTOR, GALLERY & STUDIO STYLING
+   ========================================================================== */
+
+/* Navigation Tabs */
+.app-nav-tabs {
+  display: flex;
+  background: var(--bg-surface-1);
+  padding: 6px 12px;
+  gap: 6px;
+  border-bottom: 1px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 4px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--tg-theme-hint-color);
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.nav-tab .tab-icon {
+  font-size: 15px;
+}
+
+.nav-tab.active {
+  background: var(--bg-surface-3);
+  color: #ffffff;
+}
+
+/* Tab Panes */
+.tab-pane {
+  display: none;
+  flex-direction: column;
+  flex: 1;
+  padding: 14px;
+  animation: fadeIn 0.25s var(--ease-smooth);
+}
+
+.tab-pane.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   TAB 1: 3D CARD INSPECTOR STAGE
+   ========================================================================== */
+
+.inspector-header {
+  margin-bottom: 12px;
+}
+
+.theme-selector-chips {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.theme-selector-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--tg-theme-hint-color);
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.chip.active, .chip:hover {
+  background: var(--gold-pure);
+  color: #000;
+  border-color: var(--gold-pure);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+.card-stage {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  margin: 4px 0 14px 0;
+}
+
+.card-stage-glow {
+  position: absolute;
+  width: 200px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+  filter: blur(25px);
+  pointer-events: none;
+}
+
+.card-mount-point {
+  width: 230px;
+  height: 322px; /* 5 : 7 aspect ratio */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inspector-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 10px 8px;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
+  color: #000;
+  border-color: #ffe066;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3);
+}
+
+.action-btn:active {
+  transform: scale(0.96);
+}
+
+.card-info-card {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-title {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.info-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.info-desc {
+  font-size: 12px;
+  color: var(--tg-theme-hint-color);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   TAB 2: GALLERY PRESET GRID
+   ========================================================================== */
+
+.gallery-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.filter-pills {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.filter-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.pill {
+  padding: 4px 10px;
+  border-radius: 16px;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--tg-theme-hint-color);
+  white-space: nowrap;
+}
+
+.pill.active {
+  background: var(--tg-theme-button-color);
+  color: #fff;
+  border-color: var(--tg-theme-button-color);
+}
+
+.search-box input {
+  width: 100%;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.search-box input::placeholder {
+  color: var(--tg-theme-hint-color);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding-bottom: 20px;
+}
+
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold-pure);
+}
+
+.gallery-item .card-mount {
+  width: 115px;
+  height: 161px;
+}
+
+.gallery-item-name {
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+/* ==========================================================================
+   TAB 3: PLAY HAND & FAN MECHANICS
+   ========================================================================== */
+
+.hand-stage-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.hand-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-sm {
+  flex: 1;
+  padding: 6px 8px;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.btn-sm:active {
+  background: var(--bg-surface-3);
+  transform: scale(0.97);
+}
+
+.hand-hint {
+  font-size: 11px;
+  color: var(--tg-theme-hint-color);
+  text-align: center;
+}
+
+.play-arena {
+  flex: 1;
+  min-height: 180px;
+  background: radial-gradient(circle at 50% 50%, #151d29 0%, #0c1017 100%);
+  border: 2px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.drop-zone-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 12px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.zone-icon {
+  font-size: 24px;
+}
+
+.played-cards-slot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+.played-card-wrapper {
+  width: 90px;
+  height: 126px;
+  animation: slamDown 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slamDown {
+  0% { transform: scale(1.6) translateY(-40px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* Fanned Hand Arc Layout */
+.hand-container {
+  height: 170px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible;
+  padding-bottom: 8px;
+}
+
+.hand-fan {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.hand-card-item {
+  position: absolute;
+  bottom: 0;
+  width: 110px;
+  height: 154px;
+  transform-origin: bottom center;
+  transition: transform 0.3s var(--ease-spring), filter 0.2s ease, z-index 0s;
+  cursor: pointer;
+}
+
+.hand-card-item:hover, .hand-card-item.selected {
+  transform: translateY(-38px) scale(1.15) !important;
+  z-index: 100 !important;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
+}
+
+/* ==========================================================================
+   TAB 4: TEXTURE LAB & STUDIO CUSTOMIZER
+   ========================================================================== */
+
+.studio-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.studio-preview-sticky {
+  position: sticky;
+  top: 50px;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  background: var(--tg-theme-bg-color);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.studio-card-mount {
+  width: 160px;
+  height: 224px;
+}
+
+.studio-editor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.studio-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold-pure);
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 4px;
+  margin-top: 6px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--tg-theme-hint-color);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #fff;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--gold-pure);
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.form-row .col {
+  flex: 1;
+}
+
+.studio-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.btn-action {
+  flex: 1;
+  padding: 10px;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-action.primary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #34d399;
+}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Seka / Trinka 2D Karta O'yini | Telegram Mini App</title>
+  
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Google Fonts: Casino Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=JetBrains+Mono:wght@500;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script type="module" crossorigin src="/assets/index-DdwCB_zX.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-C4MTDbzl.css">
+</head>
+<body>
+  <div id="app" class="app-root">
+    
+    <!-- Smartfon Simulyatori (Desktopda ko'rish uchun) -->
+    <div id="simulator-wrapper" class="simulator-wrapper">
+      
+      <!-- Yuqori Boshqaruv Paneli -->
+      <header class="desktop-top-bar" id="desktop-controls">
+        <div class="brand">
+          <span class="brand-icon">♠️</span>
+          <span class="brand-name">SEKA / TRINKA</span>
+          <span class="badge-tma">TMA Mini App</span>
+        </div>
+        
+        <div class="view-mode-toggles">
+          <button class="btn-mode active" data-mode="mobile-frame" title="Smartfon ko'rinishi">
+            📱 Smartfon
+          </button>
+          <button class="btn-mode" data-mode="fullscreen" title="Moslashuvchan ko'rinish">
+            🖥️ To'liq Ekran
+          </button>
+        </div>
+
+        <div class="device-preset-selector">
+          <label>Model:</label>
+          <select id="device-select">
+            <option value="telegram-mini">Telegram (390×844)</option>
+            <option value="iphone-15">iPhone 15 Pro (393×852)</option>
+            <option value="pixel-8">Pixel 8 (412×915)</option>
+            <option value="galaxy-s24">Galaxy S24 (360×780)</option>
+          </select>
+        </div>
+      </header>
+
+      <!-- Telefon Korpus Ramkasi -->
+      <main class="phone-frame" id="phone-frame">
+        <div class="phone-dynamic-island">
+          <div class="camera-lens"></div>
+          <div class="sensor"></div>
+        </div>
+
+        <!-- Telegram Mini App Sarlavhasi -->
+        <header class="tg-app-header">
+          <div class="tg-header-left">
+            <button class="tg-btn-close" id="tg-close-btn">Yopish</button>
+          </div>
+          <div class="tg-header-center">
+            <span class="tg-app-title">Seka Trinka Online</span>
+            <span class="tg-app-subtitle">bot</span>
+          </div>
+          <div class="tg-header-right">
+            <button class="tg-btn-menu" id="tg-menu-btn">•••</button>
+          </div>
+        </header>
+
+        <!-- Asosiy Ko'rinish Maydoni -->
+        <div class="phone-viewport game-container" id="phone-viewport">
+          
+          <!-- Yuqori Rejim va Qayta Boshlash -->
+          <div class="game-top-bar">
+            <div class="mode-selector">
+              <button class="mode-btn active" id="btn-mode-3" data-mode="3">3 ta Karta</button>
+              <button class="mode-btn" id="btn-mode-4" data-mode="4">4 ta Karta</button>
+            </div>
+            <button class="btn-reset-match" id="btn-reset-match">🔄 Yangilash</button>
+          </div>
+
+          <!-- Kazino Yashil Suvli Stol Maydoni -->
+          <div class="seka-table" id="seka-table">
+            <div class="table-felt-pattern"></div>
+
+            <!-- 1. RAQIB BOT HUDUDI -->
+            <div class="bot-player-zone">
+              <div class="player-identity-bar">
+                <span class="player-avatar">🤖</span>
+                <span class="player-name">Server Bot</span>
+                <span class="player-chips-badge">💰 <span id="bot-chips-val">1000</span></span>
+                <span class="bot-score-badge" id="bot-score-badge" style="display: none;">0 BALL</span>
+              </div>
+              <div class="cards-row" id="bot-cards-row">
+                <!-- Bot kartalari -->
+              </div>
+            </div>
+
+            <!-- 2. STOL MARKAZIY HUBI (BANK, SVARA, STATUS) -->
+            <div class="table-center-hub">
+              <div class="pot-display-pill">
+                <span class="pot-icon">🪙</span>
+                <span class="pot-amount" id="pot-val">BANK: 0</span>
+              </div>
+              <div class="svara-banner" id="svara-banner" style="display: none;">
+                ⚡ SVARA DURANG! BANK KEYINGI RAUNDGA O'TDI ⚡
+              </div>
+              <div class="round-status-message" id="round-status-msg">
+                Boshlash uchun "KARTALARNI TARQATISH" tugmasini bosing.
+              </div>
+            </div>
+
+            <!-- 3. FOYDALANUVCHI HUDUDI -->
+            <div class="human-player-zone">
+              <div class="cards-row" id="player-cards-row">
+                <!-- Foydalanuvchi kartalari -->
+              </div>
+              <div class="player-score-hud" id="player-score-hud">
+                <span class="score-suit-badge" id="hud-combination-name">Ante Tikish</span>
+                <span class="score-points-counter" id="hud-points-val">0 BALL</span>
+              </div>
+              <div class="player-identity-bar">
+                <span class="player-avatar">👤</span>
+                <span class="player-name">Siz</span>
+                <span class="player-chips-badge">💰 <span id="player-chips-val">1000</span></span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Pastki Amallar Paneli -->
+          <div class="game-action-bar">
+            <!-- Tezkor Oshirish Qiymatlari -->
+            <div class="quick-raise-pills" id="raise-pills-row">
+              <button class="pill-amt active" data-amt="10">+10</button>
+              <button class="pill-amt" data-amt="25">+25</button>
+              <button class="pill-amt" data-amt="50">+50</button>
+              <button class="pill-amt" data-amt="100">+100</button>
+            </div>
+
+            <!-- Asosiy Tugmalar -->
+            <div class="main-actions-row">
+              <button class="action-btn btn-fold" id="btn-fold">
+                <span>🚫 Pas (Tashlash)</span>
+                <span class="btn-sub-label">Taslim bo'lish</span>
+              </button>
+
+              <button class="action-btn btn-check-call" id="btn-check-call">
+                <span id="label-check-call">Chek (Tekshirish)</span>
+                <span class="btn-sub-label" id="sublabel-check-call">Tekinga</span>
+              </button>
+
+              <button class="action-btn btn-raise" id="btn-raise">
+                <span>⚡ Oshirish</span>
+                <span class="btn-sub-label" id="sublabel-raise">+10</span>
+              </button>
+
+              <button class="action-btn btn-deal-next" id="btn-deal">
+                <span>♠️ Tarqatish</span>
+                <span class="btn-sub-label">Ante: 10</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="phone-home-indicator"></div>
+      </main>
+
+    </div>
+  </div>
+
+</body>
+</html>

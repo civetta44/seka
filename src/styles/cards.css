@@ -1,0 +1,486 @@
+/* ==========================================================================
+   2D CARD ENGINE & TEXTURE SHADERS (CSS3 3D TRANSFORMS & FOIL LAYERS)
+   ========================================================================== */
+
+/* Outer Perspective Container */
+.card-wrapper {
+  position: relative;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  display: inline-block;
+  touch-action: none;
+  cursor: grab;
+  transition: transform 0.15s ease-out;
+}
+
+.card-wrapper:active {
+  cursor: grabbing;
+}
+
+/* Card 3D Flip Container */
+.card-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: var(--card-aspect-ratio);
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.card-3d.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Base Card Face Shared Styles */
+.card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--card-border-radius);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Front Face */
+.card-face.card-front {
+  transform: rotateY(0deg);
+  z-index: 2;
+  background: #14171d;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Back Face */
+.card-face.card-back {
+  transform: rotateY(180deg);
+  z-index: 1;
+  background: #0d1017;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================================================
+   CARD TEXTURE THEMES & FRAMES
+   ========================================================================== */
+
+/* 1. MYTHIC FANTASY THEME (Gilded Gold & Celestial Runes) */
+.theme-mythic-fantasy .card-front {
+  background: radial-gradient(circle at 50% 30%, #1f2533 0%, #0d1017 85%);
+  border: 2px solid #d4af37;
+  box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.4);
+}
+.theme-mythic-fantasy .card-inner-frame {
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: calc(var(--card-border-radius) - 4px);
+  pointer-events: none;
+}
+.theme-mythic-fantasy .card-corner-filigree {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #d4af37;
+}
+.theme-mythic-fantasy .corner-tl { top: 7px; left: 7px; border-right: none; border-bottom: none; }
+.theme-mythic-fantasy .corner-tr { top: 7px; right: 7px; border-left: none; border-bottom: none; }
+.theme-mythic-fantasy .corner-bl { bottom: 7px; left: 7px; border-right: none; border-top: none; }
+.theme-mythic-fantasy .corner-br { bottom: 7px; right: 7px; border-left: none; border-top: none; }
+
+/* 2. ROYAL CASINO THEME (Classic Velvet & Ornate Trims) */
+.theme-royal-casino .card-front {
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 2px solid #d4af37;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.08);
+}
+.theme-royal-casino .card-header-title {
+  color: #1a1a1a;
+  font-family: var(--font-display);
+}
+.theme-royal-casino .suit-red {
+  color: var(--crimson-royal);
+}
+.theme-royal-casino .suit-black {
+  color: #111111;
+}
+
+/* 3. CYBER NEON THEME (Futuristic Holo Grid & Laser Edges) */
+.theme-cyber-neon .card-front {
+  background: linear-gradient(180deg, #090e17 0%, #03060a 100%);
+  border: 2px solid var(--cyan-neon);
+  box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.3), 0 0 12px rgba(0, 240, 255, 0.2);
+}
+.theme-cyber-neon .card-inner-frame {
+  position: absolute;
+  inset: 5px;
+  border: 1px dashed rgba(255, 0, 127, 0.6);
+  border-radius: calc(var(--card-border-radius) - 4px);
+  pointer-events: none;
+}
+.theme-cyber-neon .card-header-title {
+  color: var(--cyan-neon);
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+  letter-spacing: 1px;
+}
+
+/* 4. OBSIDIAN LUXURY THEME (Brushed Carbon & 24K Gold) */
+.theme-obsidian-gold .card-front {
+  background: linear-gradient(145deg, #181a1f 0%, #090a0c 100%);
+  border: 2px solid #e6b800;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9);
+}
+.theme-obsidian-gold .card-inner-frame {
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(230, 184, 0, 0.3);
+  border-radius: calc(var(--card-border-radius) - 4px);
+  pointer-events: none;
+}
+
+/* 5. RETRO PIXEL THEME */
+.theme-retro-pixel .card-front {
+  background: #181425;
+  border: 3px solid #ffcd75;
+  box-shadow: 4px 4px 0px #3a4466;
+  border-radius: 4px;
+  image-rendering: pixelated;
+}
+.theme-retro-pixel .card-face {
+  border-radius: 4px;
+}
+.theme-retro-pixel .card-header-title {
+  font-family: var(--font-mono);
+  color: #ffcd75;
+}
+
+/* ==========================================================================
+   CARD FRONT CONTENT STRUCTURE & SECTIONS
+   ========================================================================== */
+
+.card-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px 4px 10px;
+  z-index: 3;
+}
+
+.card-badge-cost {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffd700 0%, #a67c00 100%);
+  color: #000;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.8);
+  border: 1px solid #ffe680;
+}
+
+.card-title-group {
+  flex: 1;
+  margin: 0 6px;
+  overflow: hidden;
+}
+
+.card-header-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-rarity-gem {
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px currentColor;
+}
+.rarity-common .card-rarity-gem { background: #8e9aaf; color: #8e9aaf; }
+.rarity-rare .card-rarity-gem { background: #3b82f6; color: #3b82f6; }
+.rarity-epic .card-rarity-gem { background: #a855f7; color: #a855f7; }
+.rarity-legendary .card-rarity-gem { background: #ffd700; color: #ffd700; }
+
+/* Center Art Illustration Box */
+.card-art-box {
+  position: relative;
+  margin: 0 8px;
+  flex: 1;
+  min-height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.card-art-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card-wrapper:hover .card-art-svg {
+  transform: scale(1.04);
+}
+
+/* Card Body / Description / Lore Section */
+.card-body {
+  position: relative;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 3;
+}
+
+.card-type-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gold-pure);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 2px;
+}
+
+.card-description-text {
+  font-size: 10px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.85);
+  min-height: 38px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.theme-royal-casino .card-description-text {
+  color: #333333;
+}
+
+/* Bottom Stats Bar (ATK / DEF / RANK) */
+.card-footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px 8px 8px;
+  z-index: 3;
+}
+
+.card-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 11px;
+  font-family: var(--font-mono);
+}
+
+.stat-atk {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.35), rgba(153, 27, 27, 0.8));
+  border: 1px solid #ef4444;
+  color: #fecaca;
+}
+
+.stat-def {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(30, 58, 138, 0.8));
+  border: 1px solid #3b82f6;
+  color: #bfdbfe;
+}
+
+/* Classic Standard 52-Card Face Overrides */
+.card-classic-face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.classic-corner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+
+.classic-corner .rank {
+  font-size: 18px;
+}
+
+.classic-corner .suit {
+  font-size: 16px;
+  margin-top: 2px;
+}
+
+.classic-corner.top-left {
+  align-self: flex-start;
+}
+
+.classic-corner.bottom-right {
+  align-self: flex-end;
+  transform: rotate(180deg);
+}
+
+.classic-center-art {
+  position: absolute;
+  inset: 35px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.classic-pip-grid {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  align-items: center;
+  justify-items: center;
+  font-size: 24px;
+}
+
+.classic-face-royal-art {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   CARD BACK TEXTURES & PATTERNS
+   ========================================================================== */
+
+.card-back-pattern {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--card-border-radius);
+  overflow: hidden;
+}
+
+.card-back-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-back-inner-rim {
+  position: absolute;
+  inset: 6px;
+  border: 2px solid rgba(212, 175, 55, 0.6);
+  border-radius: calc(var(--card-border-radius) - 5px);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   HOLOGRAPHIC FOIL & SPECULAR GLARE SHADERS
+   ========================================================================== */
+
+/* Specular White Glare Layer */
+.card-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--card-border-radius);
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 255, 255, var(--glare-opacity, 0.35)) 0%,
+    rgba(255, 255, 255, 0) 65%
+  );
+  pointer-events: none;
+  z-index: 10;
+  mix-blend-mode: overlay;
+  transition: opacity 0.2s ease;
+}
+
+/* Holographic Rainbow Foil Layer */
+.card-holo {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--card-border-radius);
+  background: linear-gradient(
+    var(--holo-angle, 135deg),
+    rgba(255, 0, 0, 0.25) 0%,
+    rgba(255, 154, 0, 0.25) 15%,
+    rgba(208, 222, 33, 0.25) 30%,
+    rgba(79, 220, 74, 0.25) 45%,
+    rgba(63, 218, 216, 0.25) 60%,
+    rgba(47, 86, 255, 0.25) 75%,
+    rgba(152, 43, 255, 0.25) 90%,
+    rgba(255, 0, 0, 0.25) 100%
+  );
+  background-size: 200% 200%;
+  background-position: var(--holo-bg-pos, 50% 50%);
+  mix-blend-mode: color-dodge;
+  pointer-events: none;
+  z-index: 9;
+  opacity: var(--holo-opacity, 0.45);
+  transition: opacity 0.25s ease;
+}
+
+/* Gold Metallic Foil Layer */
+.finish-gold-foil .card-holo {
+  background: linear-gradient(
+    var(--holo-angle, 135deg),
+    rgba(255, 215, 0, 0.5) 0%,
+    rgba(255, 255, 255, 0.8) 35%,
+    rgba(218, 165, 32, 0.6) 70%,
+    rgba(255, 215, 0, 0.4) 100%
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0.6;
+}
+
+/* Cosmic Galaxy Glitter */
+.finish-cosmic-glitter .card-holo {
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(192, 132, 252, 0.6) 0%,
+    rgba(56, 189, 248, 0.5) 40%,
+    rgba(244, 114, 182, 0.3) 70%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.7;
+}
+
+.finish-none .card-holo,
+.finish-none .card-glare {
+  display: none !important;
+}
